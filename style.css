@@ -1,0 +1,142 @@
+:root {
+  --base-opacity: 0.18; /* Normal brightness when active */
+  --peak-opacity: 0.3; /* Highest brightness during flicker */
+  --vignette: 0.55; /* How dark the edges are */
+  --transition-ms: 140ms; /* How smooth brightness changes feel */
+}
+
+/*
+  Make sure the overlay fills the entire browser source
+*/
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+/*
+  MAIN OVERLAY CONTAINER
+  Covers the whole screen.
+  pointer-events: none means it will NOT block your camera or alerts behind it.
+*/
+#overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--base-opacity);
+  transition: opacity var(--transition-ms) ease;
+}
+
+/*
+  Hidden class
+  JS adds/removes this when triggering
+*/
+.hidden {
+  opacity: 0 !important;
+}
+
+.glow-layer {
+  position: absolute;
+  inset: -15%;
+  filter: blur(40px);
+  transform: translateZ(0);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+.layer-a {
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      rgba(255, 220, 180, 0.55),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 70% 55%,
+      rgba(180, 220, 255, 0.45),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 55% 80%,
+      rgba(210, 255, 210, 0.25),
+      transparent 55%
+    );
+  animation: driftA 6.5s ease-in-out infinite;
+}
+
+.layer-b {
+  background:
+    radial-gradient(
+      circle at 45% 35%,
+      rgba(255, 180, 220, 0.35),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 75% 70%,
+      rgba(255, 255, 200, 0.3),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(180, 200, 255, 0.22),
+      transparent 55%
+    );
+  animation: driftB 8.5s ease-in-out infinite;
+  opacity: 0.75;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, var(--vignette)) 100%
+  );
+  opacity: 0.55;
+}
+
+.label {
+  position: absolute;
+  left: 4%;
+  bottom: 5%;
+  font:
+    600 18px/1.2 system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+  letter-spacing: 0.4px;
+  opacity: 0.85;
+}
+/* Light animations*/
+@keyframes driftA {
+  0% {
+    transform: translate(-2%, -1%) scale(1.03);
+  }
+  50% {
+    transform: translate(2%, 1%) scale(1.06);
+  }
+  100% {
+    transform: translate(-2%, -1%) scale(1.03);
+  }
+}
+
+@keyframes driftB {
+  0% {
+    transform: translate(2%, 1%) scale(1.02);
+  }
+  50% {
+    transform: translate(-2%, -1%) scale(1.05);
+  }
+  100% {
+    transform: translate(2%, 1%) scale(1.02);
+  }
+}

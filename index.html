@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rave Overlay</title>
+  </head>
+  <body>
+    <!--
+    Main Overlay Container
+    - Covers the entire screen.
+    - Keeps "hidden" by default so it doesn't show all the time.
+    - JS removes the "hidden" class when a community gift happens.
+    -->
+    <div id="overlay" class="hidden" aria-hidden="true">
+      <!--
+        Glow visuals
+        - Empty divs that mimic light.
+        -->
+      <div class="glow-layer layer-a"></div>
+      <div class="glow-layer layer-b"></div>
+      <!--
+        Vignette visuals
+        - Dark fade around the edges of the screen.
+        -->
+      <div class="vignette"></div>
+
+      <!--
+        Text
+        - JS can put a message here like: "Name gifted x subs!"
+        -->
+      <div class="label" id="label"></div>
+    </div>
+    <!--
+    Audio 
+    - This is where the MP3 plays from.
+    - URL: https://github.com/Maddiep88/stream-assets/blob/main/rave-overlay/rave-assets/LGO.mp3
+    -->
+    <audio id="audio" preload="auto" crossorigin="anonymous"></audio>
+  </body>
+</html>
